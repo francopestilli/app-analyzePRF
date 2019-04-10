@@ -14,7 +14,7 @@ a1 = load_untouch_nii(fmri);
 data{1} = double(a1.img);
 % Just analyze one slice's worth of voxels
 data2 = {};
-data2{1} = data{1}(50,60,:,:);
+data2{1} = data{1}(50,60,51:60,:);
 
 stimulus = {};
 a1 = load_untouch_nii(stim);
