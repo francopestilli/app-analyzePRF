@@ -5,6 +5,7 @@ if ~isdeployed
 	addpath(genpath('/N/u/brlife/git/jsonlab'))
 	addpath(genpath('/N/u/brlife/git/mrTools'))
 	addpath(genpath('/N/u/brlife/git/vistasoft'))
+	addpath(genpath('/N/u/davhunt/Carbonate/analyzePRF/utilities'))
 end
 
 % load my own config.json

@@ -4,8 +4,8 @@ function analyzeHCP(fmri,stim)
 %% Download dataset (if necessary) and add analyzePRF to the MATLAB path
 
 %setup;
-addpath(genpath('/N/u/davhunt/Carbonate/analyzePRF'))
-addpath(genpath('/N/u/davhunt/Carbonate/analyzePRF/utilities'))
+%addpath(genpath('/N/u/davhunt/Carbonate/analyzePRF'))
+%addpath(genpath('/N/u/davhunt/Carbonate/analyzePRF/utilities'))
 
 %% Load in the data
 
