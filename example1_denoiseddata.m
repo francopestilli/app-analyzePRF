@@ -16,7 +16,7 @@ whos
 %% Inspect the data
 
 % Check dimensionality of the data
-data
+denoiseddata
 %%
 
 % There are four runs of data; each run consists of 150 time points (TR = 2 s).
@@ -24,7 +24,7 @@ data
 % correction, and spatial undistortion.  For simplicity, we have selected
 % 10 example voxels from the left hemisphere.  Let's visualize the time-series 
 % data for the second voxel.
-temp = cellfun(@(x) x(2,:),data,'UniformOutput',0);
+temp = cellfun(@(x) x(2,:),denoiseddata,'UniformOutput',0);
 figure; hold on;
 set(gcf,'Units','points','Position',[100 100 600 150]);
 plot(cat(2,temp{:}),'r-');
@@ -78,7 +78,7 @@ end
 % We need to resample the data to match the temporal rate of the stimulus.  Here we use 
 % cubic interpolation to increase the rate of the data from 2 seconds to 1 second (note 
 % that the first time point is preserved and the total data duration stays the same).
-data = tseriesinterp(data,2,1,2);
+%denoiseddata = tseriesinterp(data,2,1,2);
 
 % Finally, we analyze the data using analyzePRF.  The third argument is the TR, which 
 % is now 1 second.  The default analysis strategy involves two generic initial seeds
@@ -86,7 +86,7 @@ data = tseriesinterp(data,2,1,2);
 % a little costly to compute, so to save time, we set 'seedmode' to [0 1] which means 
 % to just use the two generic initial seeds.  We suppress command-window output by 
 % setting 'display' to 'off'.
-results = analyzePRF(stimulus,data,1,struct('seedmode',[0 1],'display','off'));
+results = analyzePRF(stimulus,denoiseddata,1,struct('seedmode',[0 1],'display','off'));
 %%
 
 % Note that because of the use of parfor, the command-window output for different
@@ -103,7 +103,7 @@ cfactor = 10/100;
 % Visualize the location of each voxel's pRF
 figure; hold on;
 set(gcf,'Units','points','Position',[100 100 400 400]);
-cmap = jet(size(results.ang,1))
+cmap = jet(size(results.ang,1));
 for p=1:size(results.ang,1)
   xpos = results.ecc(p) * cos(results.ang(p)/180*pi) * cfactor;
   ypos = results.ecc(p) * sin(results.ang(p)/180*pi) * cfactor;

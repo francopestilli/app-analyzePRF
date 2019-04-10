@@ -2,12 +2,23 @@
 
 %% Download dataset (if necessary) and add analyzePRF to the MATLAB path
 
-setup;
+addpath(genpath('/gpfs/home/d/a/davhunt/Carbonate/analyzePRF'))
 
 %% Load in the data
 
 % Load in the data
-load('exampledataset.mat');
+data = {};
+a1 = load_untouch_nii('/N/u/davhunt/Carbonate/Downloads/172130/195/bold.nii.gz');
+data{1} = double(a1.img);
+a1 = load_untouch_nii('/N/u/davhunt/Carbonate/Downloads/172130/194/bold.nii.gz');
+data{2} = double(a1.img);
+a1 = load_untouch_nii('/N/u/davhunt/Carbonate/Downloads/172130/193/bold.nii.gz');
+data{3} = double(a1.img);
+%data{4} = double(a1.img);
+%a1 = load_untouch_nii('/N/u/davhunt/Carbonate/Downloads/172130/191/bold.nii.gz');
+%data{5} = double(a1.img);
+%a1 = load_untouch_nii('/N/u/davhunt/Carbonate/Downloads/172130/190/bold.nii.gz');
+%data{6} = double(a1.img);
 
 % Check the workspace
 whos
@@ -26,19 +37,32 @@ data
 % data for the second voxel.
 temp = cellfun(@(x) x(2,:),data,'UniformOutput',0);
 figure; hold on;
-set(gcf,'Units','points','Position',[100 100 600 150]);
+set(gcf,'Units','points','Position',[200 200 1800 300]);
 plot(cat(2,temp{:}),'r-');
-straightline(150*(1:4)+.5,'v','g-');
+straightline(300*(1:6)+.5,'v','g-');
 xlabel('TR');
 ylabel('BOLD signal');
 ax = axis;
-axis([.5 600+.5 ax(3:4)]);
+axis([.5 1800+.5 ax(3:4)]);
 title('Time-series data');
 %%
 
 %% Inspect the stimuli
 
 % Check dimensionality of the stimuli
+stimulus = {}
+a2 = load_untouch_nii('/N/u/davhunt/Carbonate/Downloads/HCP stimuli/stim2.nii.gz');
+stimulus{1} = double(a2.img);
+a2 = load_untouch_nii('/N/u/davhunt/Carbonate/Downloads/HCP stimuli/stim3.nii.gz');
+stimulus{2} = double(a2.img);
+a2 = load_untouch_nii('/N/u/davhunt/Carbonate/Downloads/HCP stimuli/stim4.nii.gz');
+stimulus{3} = double(a2.img);
+%a2 = load_untouch_nii('/N/u/davhunt/Carbonate/Downloads/HCP stimuli/stim5.nii.gz');
+%stimulus{4} = double(a2.img);
+%a2 = load_untouch_nii('/N/u/davhunt/Carbonate/Downloads/HCP stimuli/stim6.nii.gz');
+%stimulus{5} = double(a2.img);
+%stimulus{6} = double(a2.img);
+
 stimulus
 %%
 
@@ -48,10 +72,10 @@ stimulus
 % the data, we will resample the data to match the stimulus rate.)  Let's inspect a 
 % few of the stimulus images in the first run.
 figure;
-set(gcf,'Units','points','Position',[100 100 700 300]);
+set(gcf,'Units','points','Position',[200 200 700 300]);
 for p=1:3
   subplot(1,3,p); hold on;
-  num = 239+2*p;
+  num = 235+2*p;
   imagesc(stimulus{1}(:,:,num),[0 1]);
   axis image tight;
   set(gca,'YDir','reverse');
@@ -70,15 +94,15 @@ end
 %if matlabpool('size')==0
 %  matlabpool open;
 %end
-try
-    if (matlabpool('size')==0) matlabpool; end
-catch
-    if isempty(gcp('nocreate')) parpool; end
-end
+%try
+    %if (matlabpool('size')==0) matlabpool; end
+%catch
+    %if isempty(gcp('nocreate')) parpool; end
+%end
 % We need to resample the data to match the temporal rate of the stimulus.  Here we use 
 % cubic interpolation to increase the rate of the data from 2 seconds to 1 second (note 
 % that the first time point is preserved and the total data duration stays the same).
-data = tseriesinterp(data,2,1,2);
+%data = tseriesinterp(data,2,1,2);
 
 % Finally, we analyze the data using analyzePRF.  The third argument is the TR, which 
 % is now 1 second.  The default analysis strategy involves two generic initial seeds
@@ -98,29 +122,29 @@ results = analyzePRF(stimulus,data,1,struct('seedmode',[0 1],'display','off'));
 % The stimulus is 100 pixels (in both height and weight), and this corresponds to
 % 10 degrees of visual angle.  To convert from pixels to degreees, we multiply
 % by 10/100.
-cfactor = 10/100;
+%cfactor = 10/100;
 
 % Visualize the location of each voxel's pRF
-figure; hold on;
-set(gcf,'Units','points','Position',[100 100 400 400]);
-cmap = jet(size(results.ang,1))
-for p=1:size(results.ang,1)
-  xpos = results.ecc(p) * cos(results.ang(p)/180*pi) * cfactor;
-  ypos = results.ecc(p) * sin(results.ang(p)/180*pi) * cfactor;
-  ang = results.ang(p)/180*pi;
-  sd = results.rfsize(p) * cfactor;
-  h = drawellipse(xpos,ypos,ang,2*sd,2*sd);  % circle at +/- 2 pRF sizes
-  set(h,'Color',cmap(p,:),'LineWidth',2);
-  set(scatter(xpos,ypos,'r.'),'CData',cmap(p,:));
-end
-drawrectangle(0,0,10,10,'k-');  % square indicating stimulus extent
-axis([-10 10 -10 10]);
-straightline(0,'h','k-');       % line indicating horizontal meridian
-straightline(0,'v','k-');       % line indicating vertical meridian
-axis square;
-set(gca,'XTick',-10:2:10,'YTick',-10:2:10);
-xlabel('X-position (deg)');
-ylabel('Y-position (deg)');
+%figure; hold on;
+%set(gcf,'Units','points','Position',[200 200 400 400]);
+%cmap = jet(size(results.ang,1));
+%for p=1:size(results.ang,1)
+  %xpos = results.ecc(p) * cos(results.ang(p)/180*pi) * cfactor;
+  %ypos = results.ecc(p) * sin(results.ang(p)/180*pi) * cfactor;
+  %ang = results.ang(p)/180*pi;
+  %sd = results.rfsize(p) * cfactor;
+  %h = drawellipse(xpos,ypos,ang,2*sd,2*sd);  % circle at +/- 2 pRF sizes
+  %set(h,'Color',cmap(p,:),'LineWidth',2);
+  %set(scatter(xpos,ypos,'r.'),'CData',cmap(p,:));
+%end
+%drawrectangle(0,0,10,10,'k-');  % square indicating stimulus extent
+%axis([-10 10 -10 10]);
+%straightline(0,'h','k-');       % line indicating horizontal meridian
+%straightline(0,'v','k-');       % line indicating vertical meridian
+%axis square;
+%set(gca,'XTick',-10:2:10,'YTick',-10:2:10);
+%xlabel('X-position (deg)');
+%ylabel('Y-position (deg)');
 %%
 
 % Please see the example2.m script for an example of how to inspect the model fit 

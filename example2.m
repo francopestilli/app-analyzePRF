@@ -7,8 +7,10 @@ setup;
 %% Load and analyze the data (this follows the example1.m script)
 
 % Start parallel MATLAB to speed up execution
-if matlabpool('size')==0
-  matlabpool open;
+try
+    if (matlabpool('size')==0) matlabpool; end
+catch
+    if isempty(gcp('nocreate')) parpool; end
 end
 
 % Load in the data
