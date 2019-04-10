@@ -38,16 +38,16 @@ data
 % correction, and spatial undistortion.  For simplicity, we have selected
 % 10 example voxels from the left hemisphere.  Let's visualize the time-series
 % data for the second voxel.
-temp = cellfun(@(x) x(2,:),data2,'UniformOutput',0);
-figure; hold on;
-set(gcf,'Units','points','Position',[100 100 600 150]);
-plot(cat(2,temp{:}),'r-');
-straightline(150*(1:4)+.5,'v','g-');
-xlabel('TR');
-ylabel('BOLD signal');
-ax = axis;
-axis([.5 600+.5 ax(3:4)]);
-title('Time-series data');
+% temp = cellfun(@(x) x(2,:),data2,'UniformOutput',0);
+% figure; hold on;
+% set(gcf,'Units','points','Position',[100 100 600 150]);
+% plot(cat(2,temp{:}),'r-');
+% straightline(150*(1:4)+.5,'v','g-');
+% xlabel('TR');
+% ylabel('BOLD signal');
+% ax = axis;
+% axis([.5 600+.5 ax(3:4)]);
+% title('Time-series data');
 %%
 
 %% Inspect the stimuli
