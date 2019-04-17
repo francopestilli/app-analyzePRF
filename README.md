@@ -1,7 +1,7 @@
 [![Abcdspec-compliant](https://img.shields.io/badge/ABCD_Spec-v1.1-green.svg)](https://github.com/brain-life/abcd-spec)
 [![Run on Brainlife.io](https://img.shields.io/badge/Brainlife-bl.app.1-blue.svg)](https://doi.org/10.25663/bl.app.1)
 
-# app-example-documentation
+# app-analyzePRF documentation
 
 This app takes the time-series fMRI data of an individual HCP 7T subject (bold.nii.gz), and performs a retinotopic analysis of the subject's visual response to particular stimuli (stim.nii.gz).  Visually responsive voxels (or grayordinates) are analyzed and properties of each grayordinate is extracted from the fMRI data.  Visual response properties include the grayordinate's receptive field angle, eccentricity, and size, as well as the (typically compressive) exponent of the Gaussian used to model the receptive field's visual response contrast, the gain describing the pRF model, the variance explained by the model, and the mean signal intensity.
 
