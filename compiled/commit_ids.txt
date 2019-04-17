@@ -21,8 +21,8 @@ Date:   Fri Jul 13 17:13:01 2018 -0400
 
     Merge branch 'master' of https://github.com/vistalab/vistasoft
 /N/u/davhunt/Carbonate/analyzePRF/utilities
-commit acc396eeb834a330635437c2d422d87ee5512ac1
+commit c182c8e536eba3ee6f96964a281c69884102ff77
 Author: David Hunt <davhunt@indiana.edu>
-Date:   Wed Apr 10 16:42:15 2019 -0400
+Date:   Wed Apr 17 13:32:06 2019 -0400
 
-    add utilities to path
+    try on all voxels

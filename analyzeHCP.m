@@ -31,7 +31,7 @@ whos
 %% Inspect the data
 
 % Check dimensionality of the data
-data
+data2
 %%
 
 % There are four runs of data; each run consists of 150 time points (TR = 2 s).
