@@ -106,7 +106,7 @@ fid = fopen('product.json','w');
 fprintf(fid,'%s',text);
 fclose(fid);
 %%
-data3 = cat(results.ang,results.ecc,results.expt,results.rfsize,results.R2,results.gain,results.meanvol);
+data3 = cat(4,results.ang,results.ecc,results.expt,results.rfsize,results.R2,results.gain,results.meanvol);
 a2.img = make_nii(data3,[1.60 1.60 1.60]);
 save_nii(a2.img,'results.nii.gz');
 
