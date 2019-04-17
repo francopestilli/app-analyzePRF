@@ -106,9 +106,9 @@ fid = fopen('product.json','w');
 fprintf(fid,'%s',text);
 fclose(fid);
 %%
-data3 = cat(4,results.ang,results.ecc,results.expt,results.rfsize,results.R2,results.gain,results.meanvol);
-a2.img = make_nii(data3,[1.60 1.60 1.60]);
-save_nii(a2.img,'results.nii.gz');
+data3 = cat(4,results.ang,results.ecc,results.expt,results.rfsize,results.R2,results.gain,results.meanvol)
+a2.img = make_nii(data3,[1.60 1.60 1.60])
+save_nii(a2.img,'results.nii.gz')
 
 % Note that because of the use of parfor, the command-window output for different
 % voxels will come in at different times (and so the text above is not really
