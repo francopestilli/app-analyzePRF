@@ -16,7 +16,6 @@ data{1} = double(a1.img);
 % Just analyze one slice's worth of voxels
 data2 = {};
 data2{1} = data{1}(50:51,60:61,51:60,:);
-
 stimulus = {};
 a1 = load_untouch_nii(stim);
 stimulus{1} = double(a1.img);
@@ -107,6 +106,9 @@ fid = fopen('product.json','w');
 fprintf(fid,'%s',text);
 fclose(fid);
 %%
+data3 = cat(results.ang,results.ecc,results.expt,results.rfsize,results.R2,results.gain,results.meanvol);
+a2.img = make_nii(data3,[1.60 1.60 1.60]);
+save_nii(a2.img,'results.nii.gz');
 
 % Note that because of the use of parfor, the command-window output for different
 % voxels will come in at different times (and so the text above is not really
