@@ -3,6 +3,7 @@
 #PBS -N pRF
 #PBS -V
 
+export MAXMEM=19000000
 fmri=$(jq -r .fmri config.json)
 stim=$(jq -r .stim config.json)
 
