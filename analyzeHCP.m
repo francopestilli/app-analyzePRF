@@ -102,10 +102,10 @@ end
 % to just use the two generic initial seeds.  We suppress command-window output by
 % setting 'display' to 'off'.
 results = analyzePRF(stimulus,data2,1,struct('seedmode',[-2],'display','off'));
-text = jsonencode(results);
-fid = fopen('product.json','w');
-fprintf(fid,'%s',text);
-fclose(fid);
+%text = jsonencode(results);
+%fid = fopen('product.json','w');
+%fprintf(fid,'%s',text);
+%fclose(fid);
 %%
 data3 = cat(4,results.ang,results.ecc,results.expt,results.rfsize,results.R2,results.gain,results.meanvol)
 a2.img = make_nii(data3,[1.60 1.60 1.60])

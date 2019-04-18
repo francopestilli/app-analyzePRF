@@ -21,8 +21,8 @@ Date:   Fri Jul 13 17:13:01 2018 -0400
 
     Merge branch 'master' of https://github.com/vistalab/vistasoft
 /N/u/davhunt/Carbonate/analyzePRF/utilities
-commit 5199b3342f3f3ed210205dc147a7e7fc95c887a1
+commit 4f90c178922d070193e067d62ebd65c3d3e7b92c
 Author: David Hunt <davhunt@indiana.edu>
-Date:   Wed Apr 17 15:18:06 2019 -0400
+Date:   Thu Apr 18 12:44:45 2019 -0400
 
-    need more memory
+    try with seedmode -2
