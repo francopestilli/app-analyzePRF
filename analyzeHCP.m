@@ -107,10 +107,41 @@ results = analyzePRF(stimulus,data2,1,struct('seedmode',[-2],'display','off'));
 %fprintf(fid,'%s',text);
 %fclose(fid);
 %%
+mkdir('prf');
+cd 'prf'
 data3 = cat(4,results.ang,results.ecc,results.expt,results.rfsize,results.R2,results.gain,results.meanvol)
 a2.img = make_nii(data3,[1.60 1.60 1.60])
 save_nii(a2.img,'results.nii.gz')
 
+data3 = results.ang;
+a2.img = make_nii(data3,[1.60 1.60 1.60]);
+save_nii(a2.img,'polarAngle.nii.gz');
+
+data3 = results.ecc;
+a2.img = make_nii(data3,[1.60 1.60 1.60]);
+save_nii(a2.img,'eccentricity.nii.gz');
+
+data3 = results.expt;
+a2.img = make_nii(data3,[1.60 1.60 1.60]);
+save_nii(a2.img,'exponent.nii.gz');
+
+data3 = results.rfsize;
+a2.img = make_nii(data3,[1.60 1.60 1.60]);
+save_nii(a2.img,'rfWidth.nii.gz');
+
+data3 = results.R2;
+a2.img = make_nii(data3,[1.60 1.60 1.60]);
+save_nii(a2.img,'r2.nii.gz');
+
+data3 = results.gain;
+a2.img = make_nii(data3,[1.60 1.60 1.60]);
+save_nii(a2.img,'gain.nii.gz');
+
+data3 = results.meanvol;
+a2.img = make_nii(data3,[1.60 1.60 1.60]);
+save_nii(a2.img,'meanvol.nii.gz');
+
+cd ..
 % Note that because of the use of parfor, the command-window output for different
 % voxels will come in at different times (and so the text above is not really
 % readable).
