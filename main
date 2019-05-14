@@ -9,4 +9,4 @@ stim=$(jq -r .stim config.json)
 
 time singularity exec -e docker://brainlife/mcr:neurodebian1604-r2017a ./compiled/main
 
-time singularity exec -e docker://brainlife/afni bash -c "gunzip -k ./results.nii.gz && nifti_tool -mod_hdr -prefix ./results_aligned.nii -mod_field srow_x '-1.6 0 0 90' -mod_field srow_y '0 1.6 0 -126' -mod_field srow_z '0 0 1.60 -72' -infiles ./results.nii"
+time singularity exec -e docker://brainlife/afni ./align.sh
