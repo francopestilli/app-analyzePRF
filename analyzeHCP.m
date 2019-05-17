@@ -14,9 +14,9 @@ data = {};
 a1 = load_untouch_nii(fmri);
 data{1} = double(a1.img);
 % Just analyze one slice's worth of voxels
-data2 = {};
+%data2 = {};
 %data2{1} = data{1}(51:60,61:70,51:60,:);
-data2{1} = data{1}(:,:,:,:);
+%data2{1} = data{1}(:,:,:,:);
 stimulus = {};
 a1 = load_untouch_nii(stim);
 stimulus{1} = double(a1.img);
@@ -31,7 +31,7 @@ whos
 %% Inspect the data
 
 % Check dimensionality of the data
-data2
+data
 %%
 
 % There are four runs of data; each run consists of 150 time points (TR = 2 s).
