@@ -101,7 +101,7 @@ end
 % a little costly to compute, so to save time, we set 'seedmode' to [0 1] which means
 % to just use the two generic initial seeds.  We suppress command-window output by
 % setting 'display' to 'off'.
-results = analyzePRF(stimulus,data,1,struct('seedmode',[-2],'display','off'));
+results = analyzePRF(stimulus,data{1}(:,1:30,:,:),1,struct('seedmode',[-2],'display','off'));
 %text = jsonencode(results);
 %fid = fopen('product.json','w');
 %fprintf(fid,'%s',text);
