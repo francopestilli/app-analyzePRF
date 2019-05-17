@@ -1,5 +1,9 @@
 #!/bin/bash
+<<<<<<< HEAD
 #PBS -l nodes=1:ppn=4,vmem=150gb,walltime=24:00:00
+=======
+#PBS -l nodes=1:ppn=4,vmem=120gb,walltime=24:00:00
+>>>>>>> ab7dcd4b93283f29cad89cce9a2f450d45ec3f4b
 #PBS -N pRF
 #PBS -V
 
