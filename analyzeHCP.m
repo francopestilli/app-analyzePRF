@@ -101,7 +101,126 @@ end
 % a little costly to compute, so to save time, we set 'seedmode' to [0 1] which means
 % to just use the two generic initial seeds.  We suppress command-window output by
 % setting 'display' to 'off'.
-results = analyzePRF(stimulus,data{1}(:,1:50,:,:),1,struct('seedmode',[-2],'display','off'));
+results = analyzePRF(stimulus,data{1}(:,1:35,:,:),1,struct('seedmode',[-2],'display','off'));
+
+a2.img = make_nii(results.ang,[1.60 1.60 1.60]);
+save_nii(a2.img,'polarAngle1.nii.gz');
+results.ang = [];
+
+a2.img = make_nii(results.ecc,[1.60 1.60 1.60]);
+save_nii(a2.img,'eccentricity1.nii.gz');
+results.ecc = [];
+
+a2.img = make_nii(results.expt,[1.60 1.60 1.60]);
+save_nii(a2.img,'exponent1.nii.gz');
+results.expt = [];
+
+a2.img = make_nii(results.rfsize,[1.60 1.60 1.60]);
+save_nii(a2.img,'rfWidth1.nii.gz');
+results.rfsize = [];
+
+a2.img = make_nii(results.R2,[1.60 1.60 1.60]);
+save_nii(a2.img,'r21.nii.gz');
+results.R2 = [];
+
+a2.img = make_nii(results.gain,[1.60 1.60 1.60]);
+save_nii(a2.img,'gain1.nii.gz');
+results.gain = [];
+
+a2.img = make_nii(results.meanvol,[1.60 1.60 1.60]);
+save_nii(a2.img,'meanvol1.nii.gz');
+results.meanvol = [];
+
+results = analyzePRF(stimulus,data{1}(:,36:70,:,:),1,struct('seedmode',[-2],'display','off'));
+
+a2.img = make_nii(results.ang,[1.60 1.60 1.60]);
+save_nii(a2.img,'polarAngle2.nii.gz');
+results.ang = [];
+
+a2.img = make_nii(results.ecc,[1.60 1.60 1.60]);
+save_nii(a2.img,'eccentricity2.nii.gz');
+results.ecc = [];
+
+a2.img = make_nii(results.expt,[1.60 1.60 1.60]);
+save_nii(a2.img,'exponent2.nii.gz');
+results.expt = [];
+
+a2.img = make_nii(results.rfsize,[1.60 1.60 1.60]);
+save_nii(a2.img,'rfWidth2.nii.gz');
+results.rfsize = [];
+
+a2.img = make_nii(results.R2,[1.60 1.60 1.60]);
+save_nii(a2.img,'r22.nii.gz');
+results.R2 = [];
+
+a2.img = make_nii(results.gain,[1.60 1.60 1.60]);
+save_nii(a2.img,'gain2.nii.gz');
+results.gain = [];
+
+a2.img = make_nii(results.meanvol,[1.60 1.60 1.60]);
+save_nii(a2.img,'meanvol2.nii.gz');
+results.meanvol = [];
+
+results = analyzePRF(stimulus,data{1}(:,71:105,:,:),1,struct('seedmode',[-2],'display','off'));
+
+a2.img = make_nii(results.ang,[1.60 1.60 1.60]);
+save_nii(a2.img,'polarAngle3.nii.gz');
+results.ang = [];
+
+a2.img = make_nii(results.ecc,[1.60 1.60 1.60]);
+save_nii(a2.img,'eccentricity3.nii.gz');
+results.ecc = [];
+
+a2.img = make_nii(results.expt,[1.60 1.60 1.60]);
+save_nii(a2.img,'exponent3.nii.gz');
+results.expt = [];
+
+a2.img = make_nii(results.rfsize,[1.60 1.60 1.60]);
+save_nii(a2.img,'rfWidth3.nii.gz');
+results.rfsize = [];
+
+a2.img = make_nii(results.R2,[1.60 1.60 1.60]);
+save_nii(a2.img,'r23.nii.gz');
+results.R2 = [];
+
+a2.img = make_nii(results.gain,[1.60 1.60 1.60]);
+save_nii(a2.img,'gain3.nii.gz');
+results.gain = [];
+
+a2.img = make_nii(results.meanvol,[1.60 1.60 1.60]);
+save_nii(a2.img,'meanvol3.nii.gz');
+results.meanvol = [];
+
+results = analyzePRF(stimulus,data{1}(:,106:136,:,:),1,struct('seedmode',[-2],'display','off'));
+
+a2.img = make_nii(results.ang,[1.60 1.60 1.60]);
+save_nii(a2.img,'polarAngle4.nii.gz');
+results.ang = [];
+
+a2.img = make_nii(results.ecc,[1.60 1.60 1.60]);
+save_nii(a2.img,'eccentricity4.nii.gz');
+results.ecc = [];
+
+a2.img = make_nii(results.expt,[1.60 1.60 1.60]);
+save_nii(a2.img,'exponent4.nii.gz');
+results.expt = [];
+
+a2.img = make_nii(results.rfsize,[1.60 1.60 1.60]);
+save_nii(a2.img,'rfWidth4.nii.gz');
+results.rfsize = [];
+
+a2.img = make_nii(results.R2,[1.60 1.60 1.60]);
+save_nii(a2.img,'r24.nii.gz');
+results.R2 = [];
+
+a2.img = make_nii(results.gain,[1.60 1.60 1.60]);
+save_nii(a2.img,'gain4.nii.gz');
+results.gain = [];
+
+a2.img = make_nii(results.meanvol,[1.60 1.60 1.60]);
+save_nii(a2.img,'meanvol4.nii.gz');
+results.meanvol = [];
+
 %text = jsonencode(results);
 %fid = fopen('product.json','w');
 %fprintf(fid,'%s',text);
@@ -109,37 +228,15 @@ results = analyzePRF(stimulus,data{1}(:,1:50,:,:),1,struct('seedmode',[-2],'disp
 %%
 mkdir('prf');
 cd 'prf'
-%data3 = cat(4,results.ang,results.ecc,results.expt,results.rfsize,results.R2,results.gain,results.meanvol)
-%a2.img = make_nii(data3,[1.60 1.60 1.60])
-%save_nii(a2.img,'results.nii.gz')
+a1 = load_untouch_nii('polarAngle1.nii.gz');
+a2 = load_untouch_nii('polarAngle2.nii.gz');
+a3 = load_untouch_nii('polarAngle3.nii.gz');
+a4 = load_untouch_nii('polarAngle4.nii.gz');
+data3 = cat(4,double(a1.img),double(a2.img),double(a3.img),double(a4.img))
 
-a2.img = make_nii(results.ang,[1.60 1.60 1.60]);
-save_nii(a2.img,'polarAngle.nii.gz');
-results.ang = [];
-
-a2.img = make_nii(results.ecc,[1.60 1.60 1.60]);
-save_nii(a2.img,'eccentricity.nii.gz');
-results.ecc = [];
-
-a2.img = make_nii(results.expt,[1.60 1.60 1.60]);
-save_nii(a2.img,'exponent.nii.gz');
-results.expt = [];
-
-a2.img = make_nii(results.rfsize,[1.60 1.60 1.60]);
-save_nii(a2.img,'rfWidth.nii.gz');
-results.rfsize = [];
-
-a2.img = make_nii(results.R2,[1.60 1.60 1.60]);
-save_nii(a2.img,'r2.nii.gz');
-results.R2 = [];
-
-a2.img = make_nii(results.gain,[1.60 1.60 1.60]);
-save_nii(a2.img,'gain.nii.gz');
-results.gain = [];
-
-a2.img = make_nii(results.meanvol,[1.60 1.60 1.60]);
-save_nii(a2.img,'meanvol.nii.gz');
-results.meanvol = [];
+a2.img = make_nii(data3,[1.60 1.60 1.60])
+save_nii(a2.img,'polarAngle.nii.gz')
+delete 'polarAngle1.nii.gz' 'polarAngle2.nii.gz' 'polarAngle3.nii.gz' 'polarAngle4.nii.gz'
 
 cd ..
 % Note that because of the use of parfor, the command-window output for different
