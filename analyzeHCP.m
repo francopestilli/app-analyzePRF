@@ -237,7 +237,7 @@ for str = {'polarAngle','eccentricity','exponent','rfWidth','r2','gain','meanvol
   a2 = load_untouch_nii(strcat(str{1},'2.nii.gz'));
   a3 = load_untouch_nii(strcat(str{1},'3.nii.gz'));
   a4 = load_untouch_nii(strcat(str{1},'4.nii.gz'));
-  data3 = cat(4,double(a1.img),double(a2.img),double(a3.img),double(a4.img))
+  data3 = cat(2,double(a1.img),double(a2.img),double(a3.img),double(a4.img))
 
   a2.img = make_nii(data3,[1.60 1.60 1.60]);
   save_nii(a2.img,strcat(str{1},'.nii.gz'))
