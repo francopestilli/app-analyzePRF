@@ -101,6 +101,10 @@ end
 % a little costly to compute, so to save time, we set 'seedmode' to [0 1] which means
 % to just use the two generic initial seeds.  We suppress command-window output by
 % setting 'display' to 'off'.
+
+mkdir('prf');
+cd 'prf'
+
 results = analyzePRF(stimulus,data{1}(:,1:35,:,:),1,struct('seedmode',[-2],'display','off'));
 
 a2.img = make_nii(results.ang,[1.60 1.60 1.60]);
@@ -226,22 +230,21 @@ results.meanvol = [];
 %fprintf(fid,'%s',text);
 %fclose(fid);
 %%
-mkdir('prf');
-cd 'prf'
+
 
 for str = {'polarAngle','eccentricity','exponent','rfWidth','r2','gain','meanvol'}
-a1 = load_untouch_nii(strcat(str{1},'1.nii.gz'));
-a2 = load_untouch_nii(strcat(str{1},'2.nii.gz'));
-a3 = load_untouch_nii(strcat(str{1},'3.nii.gz'));
-a4 = load_untouch_nii(strcat(str{1},'4.nii.gz'));
-data3 = cat(4,double(a1.img),double(a2.img),double(a3.img),double(a4.img))
+  a1 = load_untouch_nii(strcat(str{1},'1.nii.gz'));
+  a2 = load_untouch_nii(strcat(str{1},'2.nii.gz'));
+  a3 = load_untouch_nii(strcat(str{1},'3.nii.gz'));
+  a4 = load_untouch_nii(strcat(str{1},'4.nii.gz'));
+  data3 = cat(4,double(a1.img),double(a2.img),double(a3.img),double(a4.img))
 
-a2.img = make_nii(data3,[1.60 1.60 1.60]);
-save_nii(a2.img,strcat(str{1},'.nii.gz'))
-delete(strcat(str{1},'1.nii.gz'));
-delete(strcat(str{1},'2.nii.gz'));
-delete(strcat(str{1},'3.nii.gz'));
-delete(strcat(str{1},'4.nii.gz'));
+  a2.img = make_nii(data3,[1.60 1.60 1.60]);
+  save_nii(a2.img,strcat(str{1},'.nii.gz'))
+  delete(strcat(str{1},'1.nii.gz'));
+  delete(strcat(str{1},'2.nii.gz'));
+  delete(strcat(str{1},'3.nii.gz'));
+  delete(strcat(str{1},'4.nii.gz'));
 end
 
 
