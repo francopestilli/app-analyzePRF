@@ -6,19 +6,10 @@
 export MAXMEM=19000000
 fmri=$(jq -r .fmri config.json)
 stim=$(jq -r .stim config.json)
-fsdir=$(jq -r .output config.json)
+fsdir=$(jq -r .stim config.json)
 
 time singularity exec -e docker://brainlife/mcr:neurodebian1604-r2017a ./compiled/main
 
 time singularity exec -e docker://brainlife/afni ./align.sh
 
-echo "creating vtks"
-mkdir -p prf/surfaces
-mris_convert --to-scanner $fsdir/surf/lh.white prf/surfaces/lh.white.vtk
-mris_convert --to-scanner $fsdir/surf/rh.white prf/surfaces/rh.white.vtk
-mris_convert --to-scanner $fsdir/surf/lh.pial prf/surfaces/lh.pial.vtk
-mris_convert --to-scanner $fsdir/surf/rh.pial prf/surfaces/rh.pial.vtk
-mris_convert --to-scanner $fsdir/surf/lh.sphere prf/surfaces/lh.sphere.vtk
-mris_convert --to-scanner $fsdir/surf/rh.sphere prf/surfaces/rh.sphere.vtk
-mris_convert --to-scanner $fsdir/surf/lh.inflated prf/surfaces/lh.inflated.vtk
-mris_convert --to-scanner $fsdir/surf/rh.inflated prf/surfaces/rh.inflated.vtk
+time singularity exec -e docker://brainlife/freesurfer:6.0.1 ./create_vtks.sh $fsdir
