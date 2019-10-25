@@ -297,7 +297,7 @@ for i = 1:size(1)
 end
 
     
-json = jsonencode(struct('ang',results.ang,'ecc',results.ecc,'rfsize',results.rfsize,'r2',results.R2,'gain',results.gain,'meanvol',results.meanvol));
+json = jsonencode(struct('polarAngle',results.ang,'eccentricity',results.ecc,'rfWidth',results.rfsize,'r2',results.R2,'gain',results.gain,'meanvol',results.meanvol));
 fileID = fopen('product.json','w')
 fprintf(fileID,json)
 fclose(fileID)
