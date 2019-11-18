@@ -6,7 +6,7 @@
 export MAXMEM=19000000
 fmri=$(jq -r .fmri config.json)
 stim=$(jq -r .stim config.json)
-fsdir=$(jq -r .stim config.json)
+fsdir=$(jq -r .output config.json)
 
 time singularity exec -e docker://brainlife/mcr:neurodebian1604-r2017a ./compiled/main
 
