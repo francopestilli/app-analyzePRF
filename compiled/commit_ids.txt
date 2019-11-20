@@ -26,3 +26,9 @@ Author: Kendrick Kay <kendrick@post.harvard.edu>
 Date:   Tue Sep 24 20:16:09 2019 -0500
 
     fix minor bug
+/N/u/davhunt/Carbonate/analyzePRF
+commit b6468ed4293b620b0871c3143e17cea4660ff3ae
+Author: Kendrick Kay <kendrick@post.harvard.edu>
+Date:   Tue Sep 24 20:16:09 2019 -0500
+
+    fix minor bug

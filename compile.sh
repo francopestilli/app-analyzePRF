@@ -12,6 +12,8 @@ echo "/N/u/brlife/git/vistasoft" >> $log
 (cd /N/u/brlife/git/vistasoft && git log -1) >> $log
 echo "/N/u/davhunt/Carbonate/analyzePRF/utilities" >> $log
 (cd /N/u/davhunt/Carbonate/analyzePRF/utilities && git log -1) >> $log
+echo "/N/u/davhunt/Carbonate/analyzePRF" >> $log
+(cd /N/u/davhunt/Carbonate/analyzePRF && git log -1) >> $log
 
 mkdir -p compiled
 
@@ -20,6 +22,7 @@ addpath(genpath('/N/u/brlife/git/vistasoft'))
 addpath(genpath('/N/u/brlife/git/jsonlab'))
 addpath(genpath('/N/soft/mason/SPM/spm8'))
 addpath(genpath('/N/u/davhunt/Carbonate/analyzePRF/utilities'))
+addpath(genpath('/N/u/davhunt/Carbonate/analyzePRF'))
 mcc -m -R -nodisplay -a /N/u/brlife/git/vistasoft/mrDiffusion/templates -d compiled main
 exit
 END
