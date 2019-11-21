@@ -89,31 +89,31 @@ end
 
 cd ..
 
-results.ang = [];
-results.ecc = [];
-results.expt = [];
-results.rfWidth = [];
-results.r2 = [];
-results.gain = [];
-results.meanvol = [];
-
-
-
-for i = 1:batched_len
-results.ang = cat(1,results.ang,batchResults.(['ang_' num2str(i)]));
-results.ecc = cat(1,results.ecc,batchResults.(['ecc_' num2str(i)]));
-results.expt = cat(1,results.expt,batchResults.(['expt_' num2str(i)]));
-results.rfWidth = cat(1,results.rfWidth,batchResults.(['rfWidth_' num2str(i)]));
-results.r2 = cat(1,results.r2,batchResults.(['r2_' num2str(i)]));
-results.gain = cat(1,results.gain,batchResults.(['gain_' num2str(i)]));
-results.meanvol = cat(1,results.meanvol,batchResults.(['meanvol_' num2str(i)]));
-end
-    
-json = jsonencode(struct('polarAngle',results.ang,'eccentricity',results.ecc,'exponent',results.expt, ...
-'rfWidth',results.rfWidth,'r2',results.r2,'gain',results.gain,'meanvol',results.meanvol));
-fileID = fopen('product.json','w')
-fprintf(fileID,json)
-fclose(fileID)
+%results.ang = [];
+%results.ecc = [];
+%results.expt = [];
+%results.rfWidth = [];
+%results.r2 = [];
+%results.gain = [];
+%results.meanvol = [];
+%
+%
+%
+%for i = 1:batched_len
+%results.ang = cat(1,results.ang,batchResults.(['ang_' num2str(i)]));
+%results.ecc = cat(1,results.ecc,batchResults.(['ecc_' num2str(i)]));
+%results.expt = cat(1,results.expt,batchResults.(['expt_' num2str(i)]));
+%results.rfWidth = cat(1,results.rfWidth,batchResults.(['rfWidth_' num2str(i)]));
+%results.r2 = cat(1,results.r2,batchResults.(['r2_' num2str(i)]));
+%results.gain = cat(1,results.gain,batchResults.(['gain_' num2str(i)]));
+%results.meanvol = cat(1,results.meanvol,batchResults.(['meanvol_' num2str(i)]));
+%end
+%    
+%json = jsonencode(struct('polarAngle',results.ang,'eccentricity',results.ecc,'exponent',results.expt, ...
+%'rfWidth',results.rfWidth,'r2',results.r2,'gain',results.gain,'meanvol',results.meanvol));
+%fileID = fopen('product.json','w')
+%fprintf(fileID,json)
+%fclose(fileID)
 
 % The stimulus is 100 pixels (in both height and weight), and this corresponds to
 % 10 degrees of visual angle.  To convert from pixels to degreees, we multiply
