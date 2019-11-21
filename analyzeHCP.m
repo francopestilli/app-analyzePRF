@@ -68,6 +68,8 @@ a2.img = make_nii(results.meanvol,[1.60 1.60 1.60]);
 save_nii(a2.img,['meanvol_' num2str(i) '.nii.gz']);
 batchResults.(['meanvol_' num2str(i)]) = results.meanvol;
 
+clearvars results;
+
 end
 
 

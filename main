@@ -1,9 +1,9 @@
 #!/bin/bash
-#PBS -l nodes=1:ppn=4,vmem=60gb,walltime=1:30:00
+#PBS -l nodes=1:ppn=4,vmem=100gb,walltime=1:30:00
 #PBS -N pRF
 #PBS -V
 
-export MAXMEM=19000000
+#export MAXMEM=19000000
 fmri=$(jq -r .fmri config.json)
 stim=$(jq -r .stim config.json)
 fsdir=$(jq -r .output config.json)
