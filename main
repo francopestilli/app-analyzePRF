@@ -1,5 +1,5 @@
 #!/bin/bash
-#PBS -l nodes=1:ppn=4,vmem=100gb,walltime=1:30:00
+#PBS -l nodes=1:ppn=4,vmem=100gb,walltime=2:30:00
 #PBS -N pRF
 #PBS -V
 
@@ -7,12 +7,13 @@
 fmri=$(jq -r .fmri config.json)
 stim=$(jq -r .stim config.json)
 fsdir=$(jq -r .output config.json)
+#mask=$(jq -r .mask config.json)
 
 [ -z "$FREESURFER_LICENSE" ] && echo "Please set FREESURFER_LICENSE in .bashrc" && exit 1;
 echo $FREESURFER_LICENSE > license.txt
 
 time singularity exec -e docker://brainlife/mcr:neurodebian1604-r2017a ./compiled/main
 
-time singularity exec -e docker://brainlife/afni ./align.sh
+#time singularity exec -e docker://brainlife/afni ./align.sh
 
 time singularity exec -e -B `pwd`/license.txt:/usr/local/freesurfer/license.txt docker://brainlife/freesurfer:6.0.1 ./create_vtks.sh $fsdir
