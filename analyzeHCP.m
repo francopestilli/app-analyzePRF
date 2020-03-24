@@ -91,7 +91,7 @@ maskedData = squeeze(maskedData);
 
 %for i = 1:batched_len
 %results = analyzePRF(stimulus,batched{i}(:,:,:,:),1,struct('seedmode',[-2],'display','off'));
-results = analyzePRF(stimulus,maskedData(:,:),1,struct('seedmode',[-2],'display','off'));
+results = analyzePRF(stimulus,maskedData(:,:),1,struct('seedmode',[2],'display','off'));
 % etc
 
 
