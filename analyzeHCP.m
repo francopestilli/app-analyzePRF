@@ -94,7 +94,7 @@ maskedData = squeeze(maskedData);
 results = analyzePRF(stimulus,maskedData(:,:),1,struct('seedmode',[-2],'display','off'));
 % etc
 
-polarAngle, eccentricity, expt, rfWidth, r2, gain, meanvol = zeros(size(data{1},1), size(data{1},2), size(data{1},3));
+[polarAngle, eccentricity, expt, rfWidth, r2, gain, meanvol] = deal(zeros(size(data{1},1), size(data{1},2), size(data{1},3)));
 
 for i = 1:size(maskBool{1},1)
   for j = 1:size(maskBool{1},2)
@@ -108,7 +108,7 @@ for i = 1:size(maskBool{1},1)
         gain(i,j,k) = results.gain;
         meanvol(i,j,k) = results.meanvol;
       else
-        polarAngle(i,j,k), eccentricity(i,j,k), expt(i,j,k), rfWidth(i,j,k), r2(i,j,k), gain(i,j,k), meanvol = NaN;
+        [polarAngle(i,j,k), eccentricity(i,j,k), expt(i,j,k), rfWidth(i,j,k), r2(i,j,k), gain(i,j,k), meanvol(i,j,k)] = deal(NaN);
       end
     end
   end
