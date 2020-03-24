@@ -60,7 +60,7 @@ for i = 1:size(data{1},1)
 %      if data{1}(i,j,k) == 0.0
 %        data{1}(i,j,k) = 0.001;		% make sure no zeros in data so we can remove them
       if maskBool{1}(i,j,k) >= 1.0
-        maskBool{1}(i,j,k) = 1.0	% create binary mask
+        maskBool{1}(i,j,k) = 1.0;	% create binary mask
       end
     end
   end
@@ -94,25 +94,41 @@ maskedData = squeeze(maskedData);
 results = analyzePRF(stimulus,maskedData(:,:),1,struct('seedmode',[-2],'display','off'));
 % etc
 
+
+% one final modification to the outputs:
+% whenever eccentricity is exactly 0, we set polar angle to NaN since it is ill-defined.
+%allresults = squish(permute(allresults,[1 3 4 2]),3);  % 91282*184*3 x 6
+%allresults = squish(permute(allresults,[1 3 4 2]),1);
+results.ang(results.ecc(:)==0) = NaN;
+%allresults = permute(reshape(allresults,[91282 184 3 6]),[1 4 2 3]);
+%allresults = permute(reshape(allresults,[59412 1 1 6]),[1 4 2 3]);
+%allresults = permute(reshape(allresults,[totalVertices 1 1 6]),[1 4 2 3]);
+
+
+
 [polarAngle, eccentricity, expt, rfWidth, r2, gain, meanvol] = deal(zeros(size(data{1},1), size(data{1},2), size(data{1},3)));
 
+m = 1;
 for i = 1:size(maskBool{1},1)
   for j = 1:size(maskBool{1},2)
     for k = 1:size(maskBool{1},3)
       if maskBool{1}(i,j,k) >= 1.0
-        polarAngle(i,j,k) = results.ang;
-        eccentricity(i,j,k) = results.ecc;
-        expt(i,j,k) = results.expt;
-        rfWidth(i,j,k) = results.rfsize;
-        r2(i,j,k) = results.R2;
-        gain(i,j,k) = results.gain;
-        meanvol(i,j,k) = results.meanvol;
+        polarAngle(i,j,k) = results.ang(m);
+        eccentricity(i,j,k) = results.ecc(m);
+        expt(i,j,k) = results.expt(m);
+        rfWidth(i,j,k) = results.rfsize(m);
+        r2(i,j,k) = results.R2(m);
+        gain(i,j,k) = results.gain(m);
+        meanvol(i,j,k) = results.meanvol(m);
+        m = m+1; % increment to total voxels in mask
       else
         [polarAngle(i,j,k), eccentricity(i,j,k), expt(i,j,k), rfWidth(i,j,k), r2(i,j,k), gain(i,j,k), meanvol(i,j,k)] = deal(NaN);
       end
     end
   end
 end
+
+
 
 
 res = 1.6;
