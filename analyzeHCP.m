@@ -8,6 +8,8 @@ stimulus = {};
 a1 = load_untouch_nii(stim);
 stimulus{1} = double(a1.img);
 
+pxtodeg = 16.0/200;
+
 %size(data{1})
 
 %try
@@ -114,9 +116,9 @@ for i = 1:size(maskBool{1},1)
     for k = 1:size(maskBool{1},3)
       if maskBool{1}(i,j,k) >= 1.0
         polarAngle(i,j,k) = results.ang(m);
-        eccentricity(i,j,k) = results.ecc(m);
+        eccentricity(i,j,k) = results.ecc(m)*pxtodeg;
         expt(i,j,k) = results.expt(m);
-        rfWidth(i,j,k) = results.rfsize(m);
+        rfWidth(i,j,k) = results.rfsize(m)*pxtodeg;
         r2(i,j,k) = results.R2(m);
         gain(i,j,k) = results.gain(m);
         meanvol(i,j,k) = results.meanvol(m);
@@ -131,7 +133,7 @@ end
 
 
 
-res = 1.6;
+res = 2.0;
 
 
 
