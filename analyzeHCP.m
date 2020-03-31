@@ -1,8 +1,8 @@
 function analyzeHCP(fmri,stim,mask)
 
 data = {};
-a1 = load_untouch_nii(fmri);
-data{1} = double(a1.img);
+nii = load_untouch_nii(fmri);
+data{1} = double(nii.img);
 
 stimulus = {};
 a1 = load_untouch_nii(stim);
@@ -135,48 +135,79 @@ end
 
 res = 2.0;
 
+nii.hdr.dime.dim(1) = 3;
+nii.hdr.dime.dim(5) = 1;
+
 
 
 
 %a2.img = make_nii(results.ang,[res res res]);
-a2.img = make_nii(polarAngle,[res res res]);
-save_nii(a2.img,['prf/polarAngle.nii.gz']);
+%a2.img = make_nii(polarAngle,[res res res]);
+%save_nii(a2.img,['prf/polarAngle.nii.gz']);
+
+nii.img = polarAngle;
+save_untouch_nii(nii,['prf/polarAngle.nii.gz']);
+
 %save_nii(a2.img,['polarAngle_' num2str(i) '.nii.gz']);
 %batchResults.(['ang_' num2str(i)]) = results.ang;
 
 %a2.img = make_nii(results.ecc,[res res res]);
-a2.img = make_nii(eccentricity,[res res res]);
-save_nii(a2.img,['prf/eccentricity.nii.gz']);
+%a2.img = make_nii(eccentricity,[res res res]);
+%save_nii(a2.img,['prf/eccentricity.nii.gz']);
+
+nii.img = eccentricity;
+save_untouch_nii(nii,['prf/eccentricity.nii.gz']);
+
 %save_nii(a2.img,['eccentricity_' num2str(i) '.nii.gz']);
 %batchResults.(['ecc_' num2str(i)]) = results.ecc;
 
 %a2.img = make_nii(results.expt,[res res res]);
-a2.img = make_nii(expt,[res res res]);
-save_nii(a2.img,['prf/exponent.nii.gz']);
+%a2.img = make_nii(expt,[res res res]);
+%save_nii(a2.img,['prf/exponent.nii.gz']);
+
+nii.img = expt;
+save_untouch_nii(nii,['prf/exponent.nii.gz']);
+
 %save_nii(a2.img,['exponent_' num2str(i) '.nii.gz']);
 %batchResults.(['expt_' num2str(i)]) = results.expt;
 
 %a2.img = make_nii(results.rfsize,[res res res]);
-a2.img = make_nii(rfWidth,[res res res]);
-save_nii(a2.img,['prf/rfWidth.nii.gz']);
+%a2.img = make_nii(rfWidth,[res res res]);
+%save_nii(a2.img,['prf/rfWidth.nii.gz']);
+
+nii.img = rfWidth;
+save_untouch_nii(nii,['prf/rfWidth.nii.gz']);
+
 %save_nii(a2.img,['rfWidth_' num2str(i) '.nii.gz']);
 %batchResults.(['rfWidth_' num2str(i)]) = results.rfsize;
 
 %a2.img = make_nii(results.R2,[res res res]);
-a2.img = make_nii(r2,[res res res]);
-save_nii(a2.img,['prf/r2.nii.gz']);
+%a2.img = make_nii(r2,[res res res]);
+%save_nii(a2.img,['prf/r2.nii.gz']);
+
+nii.img = r2;
+save_untouch_nii(nii,['prf/r2.nii.gz']);
+
 %save_nii(a2.img,['r2_' num2str(i) '.nii.gz']);
 %batchResults.(['r2_' num2str(i)]) = results.R2;
 
 %a2.img = make_nii(results.gain,[res res res]);
-a2.img = make_nii(gain,[res res res]);
-save_nii(a2.img,['prf/gain.nii.gz']);
+%a2.img = make_nii(gain,[res res res]);
+%save_nii(a2.img,['prf/gain.nii.gz']);
+
+nii.img = gain;
+save_untouch_nii(nii,['prf/gain.nii.gz']);
+
 %save_nii(a2.img,['gain_' num2str(i) '.nii.gz']);
 %batchResults.(['gain_' num2str(i)]) = results.gain;
 
 %a2.img = make_nii(results.meanvol,[res res res]);
-a2.img = make_nii(meanvol,[res res res]);
-save_nii(a2.img,['prf/meanvol.nii.gz']);
+%a2.img = make_nii(meanvol,[res res res]);
+%save_nii(a2.img,['prf/meanvol.nii.gz']);
+
+nii.img = meanvol;
+save_untouch_nii(nii,['prf/meanvol.nii.gz']);
+
 %save_nii(a2.img,['meanvol_' num2str(i) '.nii.gz']);
 %batchResults.(['meanvol_' num2str(i)]) = results.meanvol;
 
