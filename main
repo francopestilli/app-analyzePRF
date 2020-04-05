@@ -1,5 +1,5 @@
 #!/bin/bash
-#PBS -l nodes=1:ppn=4,vmem=50gb,walltime=3:00:00
+#PBS -l nodes=1:ppn=4,vmem=50gb,walltime=10:00:00
 #PBS -N pRF
 #PBS -V
 
@@ -17,4 +17,4 @@ time singularity exec -e docker://brainlife/mcr:neurodebian1604-r2017a ./compile
 #time singularity exec -e docker://brainlife/afni:16.3.0 ./align.sh
 
 time singularity exec -e -B `pwd`/license.txt:/usr/local/freesurfer/license.txt docker://brainlife/freesurfer:6.0.1 ./create_vtks.sh $fsdir
-time singularity exec -e -B `pwd`/license.txt:/usr/local/freesurfer/license.txt docker://brainlife/freesurfer:6.0.1 ./replace_vtks.sh
+#time singularity exec -e -B `pwd`/license.txt:/usr/local/freesurfer/license.txt docker://brainlife/freesurfer:6.0.1 ./replace_vtks.sh

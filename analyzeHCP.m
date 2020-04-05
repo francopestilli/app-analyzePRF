@@ -70,9 +70,10 @@ end
 
 [r,c,v] = ind2sub(size(maskBool{1}),find(maskBool{1}));
 
-maskedData = [];
+maskedData = {};
+maskedData{1} = [];
 for i = 1:size(r,1)
-  maskedData = [maskedData; data{1}(r(i),c(i),v(i),:)];
+  maskedData{1} = [maskedData{1}; data{1}(r(i),c(i),v(i),:)];
 end
 
 maskBool{1} = logical(maskBool{1});
@@ -87,14 +88,15 @@ maskBool{1} = logical(maskBool{1});
 
 
 
-maskedData = squeeze(maskedData);
+maskedData{1} = squeeze(maskedData{1});
 
 
 
 %for i = 1:batched_len
 %results = analyzePRF(stimulus,batched{i}(:,:,:,:),1,struct('seedmode',[-2],'display','off'));
-results = analyzePRF(stimulus,maskedData(:,:),1,struct('seedmode',[-2],'display','off'));
+results = analyzePRF(stimulus,maskedData,1,struct('seedmode',[-2],'display','off'));
 % etc
+save('maskedData.mat','maskedData','stimulus');
 
 
 % one final modification to the outputs:
@@ -111,9 +113,9 @@ results.ang(results.ecc(:)==0) = NaN;
 [polarAngle, eccentricity, expt, rfWidth, r2, gain, meanvol] = deal(zeros(size(data{1},1), size(data{1},2), size(data{1},3)));
 
 m = 1;
-for i = 1:size(maskBool{1},1)
+for k = 1:size(maskBool{1},3)
   for j = 1:size(maskBool{1},2)
-    for k = 1:size(maskBool{1},3)
+    for i = 1:size(maskBool{1},1)
       if maskBool{1}(i,j,k) >= 1.0
         polarAngle(i,j,k) = results.ang(m);
         eccentricity(i,j,k) = results.ecc(m)*pxtodeg;
@@ -137,6 +139,7 @@ res = 2.0;
 
 nii.hdr.dime.dim(1) = 3;
 nii.hdr.dime.dim(5) = 1;
+nii.hdr.dime.datatype = 64; %FLOAT64 img
 
 
 
