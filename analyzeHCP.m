@@ -1,8 +1,8 @@
 function analyzeHCP(fmri,stim,mask)
 
-data = {};
+data = [];
 nii = load_untouch_nii(fmri);
-data{1} = double(nii.img);
+data = double(nii.img);
 
 stimulus = {};
 a1 = load_untouch_nii(stim);
@@ -10,41 +10,34 @@ stimulus{1} = double(a1.img);
 
 pxtodeg = 16.0/200;
 
-%size(data{1})
-
-%try
-%    if (matlabpool('size')==0) matlabpool; end
-%catch
-%    if isempty(gcp('nocreate')) parpool; end
-%end
-
 mkdir('prf');
-%cd 'prf'
 
-batchResults = struct;
+%batchResults = struct;
 
 % batch time-series into 10 / 11 parts to save v memory
-k = floor(size(data{1},1)/10);
-rmndr = mod(size(data{1},1),k);
-split = ones(1,k)*10;
-if rmndr ~= 0
-  split = [split, rmndr];
-else
-  split = [split];
-end
+%k = floor(size(data{1},1)/10);
+%rmndr = mod(size(data{1},1),k);
+%split = ones(1,k)*10;
+%if rmndr ~= 0
+%  split = [split, rmndr];
+%else
+%  split = [split];
+%end
 
-batched_len = size(split, 2);
+%batched_len = size(split, 2);
 
 %batched = mat2cell(data{1},split,[size(data{1},2)],[size(data{1},3)],[size(data{1},4)]);
 
 %clearvars data;
 
 
-
-maskBool = {};
-maskedData = [];
-a1 = load_untouch_nii(mask);
-maskBool{1} = double(a1.img);
+%if exist('maskedData.mat') == 2
+%  load('maskedData.mat');
+%else
+  maskBool = {};
+  maskedData = [];
+  a1 = load_untouch_nii(mask);
+  maskBool{1} = double(a1.img);
 
 %for i = 1:size(maskBool{1},1)
 %  for j = 1:size(maskBool{1},2)
@@ -56,61 +49,45 @@ maskBool{1} = double(a1.img);
 %  end
 %end
 
-for i = 1:size(data{1},1)
-  for j = 1:size(data{1},2)
-    for k = 1:size(data{1},3)
-%      if data{1}(i,j,k) == 0.0
-%        data{1}(i,j,k) = 0.001;		% make sure no zeros in data so we can remove them
-      if maskBool{1}(i,j,k) >= 1.0
-        maskBool{1}(i,j,k) = 1.0;	% create binary mask
+  for i = 1:size(data,1)
+    for j = 1:size(data,2)
+      for k = 1:size(data,3)
+        if maskBool{1}(i,j,k) >= 1.0
+          maskBool{1}(i,j,k) = 1.0;	% create binary mask
+        end
       end
     end
   end
-end
 
-[r,c,v] = ind2sub(size(maskBool{1}),find(maskBool{1}));
+  [r,c,v] = ind2sub(size(maskBool{1}),find(maskBool{1}));
 
-maskedData = {};
-maskedData{1} = [];
-for i = 1:size(r,1)
-  maskedData{1} = [maskedData{1}; data{1}(r(i),c(i),v(i),:)];
-end
+  maskedData = [];
+  for i = 1:size(r,1)
+    maskedData = [maskedData; data(r(i),c(i),v(i),:)];
+  end
 
-maskBool{1} = logical(maskBool{1});
+  maskBool{1} = logical(maskBool{1});
 
-%maskedData = maskBool{1}.*data{1}; % combine mask and data
-%maskedData = maskedData(maskedData>0);
-%numVoxels = size(maskedData)/size(data{1},4);
-
-%maskedData = reshape(maskedData,[],numVoxels,size(data{1},4));
-
-
-
-
-
-maskedData{1} = squeeze(maskedData{1});
-
+  maskedData = squeeze(maskedData);
+  save('maskedData.mat','maskedData','maskBool','stimulus');
+%end
 
 
 %for i = 1:batched_len
 %results = analyzePRF(stimulus,batched{i}(:,:,:,:),1,struct('seedmode',[-2],'display','off'));
 results = analyzePRF(stimulus,maskedData,1,struct('seedmode',[-2],'display','off'));
-% etc
-save('maskedData.mat','maskedData','stimulus');
+
 
 
 % one final modification to the outputs:
 % whenever eccentricity is exactly 0, we set polar angle to NaN since it is ill-defined.
-%allresults = squish(permute(allresults,[1 3 4 2]),3);  % 91282*184*3 x 6
-%allresults = squish(permute(allresults,[1 3 4 2]),1);
 results.ang(results.ecc(:)==0) = NaN;
 %allresults = permute(reshape(allresults,[91282 184 3 6]),[1 4 2 3]);
 %allresults = permute(reshape(allresults,[59412 1 1 6]),[1 4 2 3]);
 %allresults = permute(reshape(allresults,[totalVertices 1 1 6]),[1 4 2 3]);
 
 
-
-[polarAngle, eccentricity, expt, rfWidth, r2, gain, meanvol] = deal(zeros(size(data{1},1), size(data{1},2), size(data{1},3)));
+[polarAngle, eccentricity, expt, rfWidth, r2, gain, meanvol] = deal(zeros(size(data,1), size(data,2), size(data,3)));
 
 m = 1;
 for k = 1:size(maskBool{1},3)
@@ -132,87 +109,34 @@ for k = 1:size(maskBool{1},3)
   end
 end
 
-
-
-
 res = 2.0;
 
 nii.hdr.dime.dim(1) = 3;
 nii.hdr.dime.dim(5) = 1;
 nii.hdr.dime.datatype = 64; %FLOAT64 img
+nii.hdr.dime.bitpix = 64;
 
-
-
-
-%a2.img = make_nii(results.ang,[res res res]);
-%a2.img = make_nii(polarAngle,[res res res]);
-%save_nii(a2.img,['prf/polarAngle.nii.gz']);
 
 nii.img = polarAngle;
 save_untouch_nii(nii,['prf/polarAngle.nii.gz']);
 
-%save_nii(a2.img,['polarAngle_' num2str(i) '.nii.gz']);
-%batchResults.(['ang_' num2str(i)]) = results.ang;
-
-%a2.img = make_nii(results.ecc,[res res res]);
-%a2.img = make_nii(eccentricity,[res res res]);
-%save_nii(a2.img,['prf/eccentricity.nii.gz']);
-
 nii.img = eccentricity;
 save_untouch_nii(nii,['prf/eccentricity.nii.gz']);
-
-%save_nii(a2.img,['eccentricity_' num2str(i) '.nii.gz']);
-%batchResults.(['ecc_' num2str(i)]) = results.ecc;
-
-%a2.img = make_nii(results.expt,[res res res]);
-%a2.img = make_nii(expt,[res res res]);
-%save_nii(a2.img,['prf/exponent.nii.gz']);
 
 nii.img = expt;
 save_untouch_nii(nii,['prf/exponent.nii.gz']);
 
-%save_nii(a2.img,['exponent_' num2str(i) '.nii.gz']);
-%batchResults.(['expt_' num2str(i)]) = results.expt;
-
-%a2.img = make_nii(results.rfsize,[res res res]);
-%a2.img = make_nii(rfWidth,[res res res]);
-%save_nii(a2.img,['prf/rfWidth.nii.gz']);
-
 nii.img = rfWidth;
 save_untouch_nii(nii,['prf/rfWidth.nii.gz']);
-
-%save_nii(a2.img,['rfWidth_' num2str(i) '.nii.gz']);
-%batchResults.(['rfWidth_' num2str(i)]) = results.rfsize;
-
-%a2.img = make_nii(results.R2,[res res res]);
-%a2.img = make_nii(r2,[res res res]);
-%save_nii(a2.img,['prf/r2.nii.gz']);
 
 nii.img = r2;
 save_untouch_nii(nii,['prf/r2.nii.gz']);
 
-%save_nii(a2.img,['r2_' num2str(i) '.nii.gz']);
-%batchResults.(['r2_' num2str(i)]) = results.R2;
-
-%a2.img = make_nii(results.gain,[res res res]);
-%a2.img = make_nii(gain,[res res res]);
-%save_nii(a2.img,['prf/gain.nii.gz']);
-
 nii.img = gain;
 save_untouch_nii(nii,['prf/gain.nii.gz']);
 
-%save_nii(a2.img,['gain_' num2str(i) '.nii.gz']);
-%batchResults.(['gain_' num2str(i)]) = results.gain;
-
-%a2.img = make_nii(results.meanvol,[res res res]);
-%a2.img = make_nii(meanvol,[res res res]);
-%save_nii(a2.img,['prf/meanvol.nii.gz']);
-
 nii.img = meanvol;
 save_untouch_nii(nii,['prf/meanvol.nii.gz']);
-
-%save_nii(a2.img,['meanvol_' num2str(i) '.nii.gz']);
-%batchResults.(['meanvol_' num2str(i)]) = results.meanvol;
 
 clearvars results;
 

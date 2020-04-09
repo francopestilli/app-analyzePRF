@@ -12,8 +12,13 @@ end
 
 % load my own config.json
 config = loadjson('config.json');
+if exist(config.mask) == 2
+  mask = config.mask;
+else
+  mask = fullfile(pwd,'mask.nii.gz');
+end
 
 % compute pRF
-analyzeHCP(config.fmri, config.stim, config.mask);
+analyzeHCP(config.fmri, config.stim, mask);
 
 end
